@@ -1,4 +1,4 @@
-package main.java.proyecto.usuario;
+package proyecto.usuario;
 
 public class Cliente extends Usuario {
     private String celular;
@@ -24,4 +24,7 @@ public class Cliente extends Usuario {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    
+
 }
