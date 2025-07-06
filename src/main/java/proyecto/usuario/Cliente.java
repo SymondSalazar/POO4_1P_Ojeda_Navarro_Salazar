@@ -1,4 +1,4 @@
-package main.java.proyecto.usuario;
+package proyecto.usuario;
 
 public class Cliente extends Usuario {
     private String celular;
