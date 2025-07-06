@@ -2,9 +2,13 @@ package proyecto;
 import java.util.Scanner;
 import java.util.ArrayList;
 import proyecto.usuario.*;
+import proyecto.producto.*;
+import proyecto.pedido.*;
 
 public class Sistema {
     private ArrayList<Usuario> usuarios;
+    private ArrayList<Producto> productos;
+    private ArrayList<Pedido> pedidos;
 
     public Usuario IniciarSesion(){
         Scanner sc = new Scanner(System.in);
@@ -13,7 +17,7 @@ public class Sistema {
         String usuario= sc.nextLine();
         System.out.println("Contraseña: ");
         String contrasenia= sc.nextLine();
-
+        sc.close();
         for (Usuario user : this.usuarios) {
             if(user.getUserName().equals(usuario) && user.getContrasena().equals(contrasenia)){
                 return user;
@@ -43,6 +47,7 @@ public class Sistema {
                 System.out.println("¿Esta empresa es correcta? (S/N)");
             }
             String sn= sc.nextLine();
+            sc.close();
             if(sn.equals("S")){
                 System.out.println("Identidad Confirmada");
                 return true;
@@ -71,7 +76,7 @@ public class Sistema {
         Sistema sis = new Sistema();
         Usuario user=sis.IniciarSesion();
         boolean val =sis.validarUsuario(user);
-        
+
         sis.mostrarmenu(user, val);
     }
 }

@@ -1,11 +1,11 @@
-package proyecto;
+package proyecto.producto;
 
 public class Producto {
-    TipoProducto categoria;
-    String codigo;
-    String nombre;
-    double precio;
-    int stock;
+    private TipoProducto categoria;
+    private String codigo;
+    private String nombre;
+    private double precio;
+    private int stock;
 
     public Producto(TipoProducto categoria, String codigo, String nombre, double precio, int stock) {
         this.categoria = categoria;
