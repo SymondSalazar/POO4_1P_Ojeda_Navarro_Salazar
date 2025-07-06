@@ -62,4 +62,9 @@ public abstract class Usuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    @Override
+    public String toString() {
+        return this.codigoUnico + "|" + this.cedula + "|" + this.nombres + "|" + this.apellidos + "|" + this.userName + "|" + this.contrasena + "|" +    this.correo;
+    }
 }
