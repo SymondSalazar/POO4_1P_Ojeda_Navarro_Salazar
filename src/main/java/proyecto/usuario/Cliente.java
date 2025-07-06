@@ -25,6 +25,9 @@ public class Cliente extends Usuario {
         this.direccion = direccion;
     }
 
-    
+    @Override
+    public String toString() {
+        return super.toString() + "|" + this.celular + "|" + this.direccion;
+    }
 
 }

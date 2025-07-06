@@ -1,5 +1,6 @@
-package proyecto;
 import proyecto.usuario.Repartidor;
+package proyecto.pedido;
+
 
 public class Pedido {
     private String codigoPedido;
