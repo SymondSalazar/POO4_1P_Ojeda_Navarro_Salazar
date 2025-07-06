@@ -1,10 +1,12 @@
 package proyecto;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import proyecto.leerArchivo.ParseData;
 import proyecto.usuario.*;
 
 public class Sistema {
-    private ArrayList<Usuario> usuarios;
+    private ArrayList<Usuario> usuarios = ParseData.parseUsuarios();
 
     public Usuario IniciarSesion(){
         Scanner sc = new Scanner(System.in);

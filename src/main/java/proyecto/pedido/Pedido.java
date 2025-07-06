@@ -1,5 +1,5 @@
-import proyecto.usuario.Repartidor;
 package proyecto.pedido;
+import proyecto.usuario.Repartidor;
 
 
 public class Pedido {

@@ -2,10 +2,12 @@ package proyecto.leerArchivo;
 
 import java.util.ArrayList;
 
+import proyecto.producto.Producto;
 import proyecto.usuario.Cliente;
 import proyecto.usuario.Usuario;
 
-public class parseData {    
+public class ParseData {    
+
 
     public static ArrayList<Usuario> parseUsuarios() {
     ArrayList<Usuario> usuariosReturn = new ArrayList<>();
@@ -54,7 +56,7 @@ public class parseData {
     }
 
 
-    public static void saveData(ArrayList<Usuario> usuarios, String tipo) {
+    public static void saveUserData(ArrayList<Usuario> usuarios, String tipo) {
         ArrayList<String> lineasCliente = new ArrayList<>();
         ArrayList<String> lineasRepartidor = new ArrayList<>();
 
@@ -73,4 +75,52 @@ public class parseData {
             ManejoArchivos.EscribirArchivo("Repartidores.txt", lineasRepartidor);
         }
 }
+
+    public ArrayList<Producto> parseProductos(){
+        ArrayList<Producto> productosReturn = new ArrayList<>();
+        ArrayList<String> productosFile = ManejoArchivos.LeeFichero("Data/Productos.txt");
+
+        for (String producto : productosFile) {
+            String[] datos = producto.split("\\|");
+            String codigo = datos[0];
+            if (codigo.equals("Código")) continue; // Skip header line
+            String categoria = datos[1];
+            String nombre = datos[2];
+            double precio = Double.parseDouble(datos[3]);
+            int stock = Integer.parseInt(datos[4]);
+            productosReturn.add(new Producto(
+                proyecto.producto.TipoProducto.valueOf(categoria), codigo, nombre, precio, stock
+            ));
+        }
+        return productosReturn;
+    }
+
+    public static void saveProductoData(ArrayList<Producto> productos) {
+        ArrayList<String> lineas = new ArrayList<>();
+        lineas.add("Código|Categoría|Nombre|Precio|Stock");
+        for (Producto producto : productos) {
+            lineas.add(producto.toString());
+        }
+        ManejoArchivos.EscribirArchivo("Productos.txt", lineas);
+    }
+
+    public static void main(String[] args) {
+        // Aquí puedes probar el método parseUsuarios() o parseProductos()
+        ArrayList<Usuario> usuarios = parseUsuarios();
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario);
+        }
+
+        ParseData parser = new ParseData();
+        ArrayList<Producto> productos = parser.parseProductos();
+        for (Producto producto : productos) {
+            System.out.println(producto);
+        }
+
+        // Puedes probar el método saveUserData() y saveProductData() aquí
+        saveUserData(usuarios, "C");
+        saveUserData(usuarios, "R");
+        saveProductoData(productos);
+        
+    }
 }
