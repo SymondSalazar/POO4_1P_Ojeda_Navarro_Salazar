@@ -1,4 +1,4 @@
-package proyecto;
+package proyecto.producto;
 
 public class Producto {
     TipoProducto categoria;
@@ -13,6 +13,14 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+    }
+
+    public Producto () {
+        this.categoria = TipoProducto.DEFAULT;
+        this.codigo = "0";
+        this.nombre = "0";
+        this.precio = 0.0;
+        this.stock = 0;
     }
 
     public TipoProducto getCategoria() {
