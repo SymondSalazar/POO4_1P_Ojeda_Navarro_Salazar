@@ -61,15 +61,20 @@ public class Sistema {
         }
     }
     public void mostrarmenu(Usuario user, boolean verificacion){
+        Scanner sc = new Scanner(System.in);
         if(user instanceof Cliente){
             Cliente c= (Cliente)user;
             System.out.println("Menú de Cliente");
             System.out.println("1. Comprar producto\n 2. Gestionar Pedido\n 3. Salir\n Seleccione una opción: ");
+            int eleccion= sc.nextInt();
+            sc.nextLine();
+            
         }else{
             Repartidor r= (Repartidor)user;
             System.out.println("Menú de Repartidor");
             System.out.println("1. Consultar pedidos\n 2. Gestionar Pedido\n 3. Salir\n Seleccione una opción: ");
-
+            int eleccion= sc.nextInt();
+            sc.nextLine();
         }
     }
     public static void main(String[] args) {
