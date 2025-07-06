@@ -26,7 +26,6 @@ public class ManejoArchivos {
             // Lectura del fichero
             String linea;
             while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
                 lineas.add(linea);
 
             }
@@ -49,17 +48,17 @@ public class ManejoArchivos {
 
     }
 
-    public static void EscribirArchivo(String nombreArchivo, String linea) {
+    public static void EscribirArchivo(String nombreArchivo, ArrayList<String> lineas) {
 
         FileWriter fichero = null;
         BufferedWriter bw = null;
       
         try {
-            fichero = new FileWriter(nombreArchivo,true);
+            fichero = new FileWriter(nombreArchivo,StandardCharsets.UTF_8,false);
             bw = new BufferedWriter(fichero);
-            bw.write(linea+"\n");
-            System.out.println("ksdsdlsd");
-
+            for(String linea : lineas){
+                bw.write(linea+"\n");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

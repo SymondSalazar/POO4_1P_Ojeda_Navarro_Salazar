@@ -1,0 +1,3 @@
+CodigoUnico|Cedula|Nombres|Apellidos|UserName|Contrasena|Correo|Celular|Direccion
+C001|0923456789|Ana|Torres|atorres|cliente123|ana.torres@email.com|0991234567|Av. Principal y Calle 10
+C002|0911122233|David|Vélez|dvelez|davepass|david.velez@email.com|0987654321|Calle Falsa 123

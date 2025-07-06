@@ -15,4 +15,9 @@ public class Repartidor extends Usuario{
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "|" + this.empresa;
+    }
 }

@@ -1,4 +1,4 @@
-package proyecto;
+package proyecto.producto;
 
 public class Producto {
     TipoProducto categoria;

@@ -1,0 +1,3 @@
+CódigoÚnico|Cédula|Nombres|Apellidos|Usuario|Contraseña|Correo|Empresa
+R001|0956677889|Camila|Ríos|crios|ruta321|camila.rios@email.com|Envíos Express
+R002|0967788990|Luis|Medina|lmedina|entrega654|luis.medina@email.com|RápidoYA
