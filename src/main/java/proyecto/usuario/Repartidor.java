@@ -13,11 +13,15 @@ public class Repartidor extends Usuario{
         return empresa;
     }
     public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+        if (empresa != null && !empresa.trim().isEmpty()) {
+            this.empresa = empresa.trim();
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() + "|" + this.empresa;
+        return new StringBuilder(super.toString())
+                .append("|").append(this.empresa)
+                .toString();
     }
 }

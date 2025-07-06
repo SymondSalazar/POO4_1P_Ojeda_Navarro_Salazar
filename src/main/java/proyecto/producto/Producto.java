@@ -40,14 +40,24 @@ public class Producto {
         this.nombre = nombre;
     }
     public void setPrecio(double precio) {
-        this.precio = precio;
+        if (precio >= 0) {
+            this.precio = precio;
+        }
     }
     public void setStock(int stock) {
-        this.stock = stock;
+        if (stock >= 0) {
+            this.stock = stock;
+        }
     }
 
     @Override
     public String toString() {
-        return this.codigo + "|" + this.categoria + "|" + this.nombre + "|" + this.precio + "|" + this.stock;
+        return new StringBuilder()
+                .append(this.codigo).append("|")
+                .append(this.categoria).append("|")
+                .append(this.nombre).append("|")
+                .append(this.precio).append("|")
+                .append(this.stock)
+                .toString();
     }
 }

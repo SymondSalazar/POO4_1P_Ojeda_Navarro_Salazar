@@ -24,13 +24,17 @@ public abstract class Usuario {
         return codigoUnico;
     }
     public void setCodigoUnico(String codigoUnico) {
-        this.codigoUnico = codigoUnico;
+        if (codigoUnico != null && !codigoUnico.trim().isEmpty()) {
+            this.codigoUnico = codigoUnico.trim();
+        }
     }
     public String getCedula() {
         return cedula;
     }
     public void setCedula(String cedula) {
-        this.cedula = cedula;
+        if (cedula != null && !cedula.trim().isEmpty()) {
+            this.cedula = cedula.trim();
+        }
     }
     public String getNombres() {
         return nombres;
@@ -65,6 +69,23 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return this.codigoUnico + "|" + this.cedula + "|" + this.nombres + "|" + this.apellidos + "|" + this.userName + "|" + this.contrasena + "|" +    this.correo;
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.codigoUnico).append("|")
+          .append(this.cedula).append("|")
+          .append(this.nombres).append("|")
+          .append(this.apellidos).append("|")
+          .append(this.userName).append("|")
+          .append(this.contrasena).append("|")
+          .append(this.correo);
+        return sb.toString();
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Usuario usuario = (Usuario) obj;
+        return codigoUnico != null ? codigoUnico.equals(usuario.codigoUnico) : usuario.codigoUnico == null;
+    }
+    
 }

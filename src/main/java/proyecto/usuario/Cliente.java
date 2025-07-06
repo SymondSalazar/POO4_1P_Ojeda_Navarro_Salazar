@@ -15,19 +15,27 @@ public class Cliente extends Usuario {
         return celular;
     }
     public void setCelular(String celular) {
-        this.celular = celular;
+        // Validación básica de formato de teléfono
+        if (celular != null && celular.trim().length() >= 10) {
+            this.celular = celular.trim();
+        }
     }
     
     public String getDireccion() {
         return direccion;
     }
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        if (direccion != null && !direccion.trim().isEmpty()) {
+            this.direccion = direccion.trim();
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() + "|" + this.celular + "|" + this.direccion;
+        return new StringBuilder(super.toString())
+                .append("|").append(this.celular)
+                .append("|").append(this.direccion)
+                .toString();
     }
 
 }
