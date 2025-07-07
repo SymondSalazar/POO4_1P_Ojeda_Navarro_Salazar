@@ -1,0 +1,2 @@
+Código|Fecha|Cliente|Producto|Cantidad|ValorTotal|Estado|Repartidor
+PED-1|2025-07-06T21:59:46.8351745|Ana Torres|Camiseta Deportiva Hombre|30|689.70|Entregado|Luis Medina

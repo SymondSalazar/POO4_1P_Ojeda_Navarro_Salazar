@@ -1,6 +1,8 @@
 package proyecto.usuario;
 import java.util.Scanner;
 import java.util.List;
+
+import proyecto.Sistema;
 import proyecto.producto.Producto;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -37,7 +39,6 @@ public class Cliente extends Usuario {
     }
 
     public TipoProducto guardarCategoria() {
-    Scanner sc = new Scanner(System.in);
     TipoProducto categoria = null;
 
     while (categoria == null || categoria == TipoProducto.DEFAULT) {
@@ -49,7 +50,7 @@ public class Cliente extends Usuario {
         }
 
         System.out.print("Ingrese categoría que desea consultar: ");
-        String entrada = sc.nextLine().toUpperCase();
+        String entrada = Sistema.SC.nextLine().toUpperCase();
 
         try {
             categoria = TipoProducto.valueOf(entrada);
@@ -61,7 +62,6 @@ public class Cliente extends Usuario {
             System.out.println("Categoría inválida. Intente nuevamente.");
         }
     }
-    sc.close();
     return categoria;
 }
 
@@ -88,12 +88,11 @@ public class Cliente extends Usuario {
 }
 
     public Producto guardarProducto(List<Producto> listaProdCat) {
-    Scanner sc = new Scanner(System.in);
     Producto productoSeleccionado = null;
 
     while (productoSeleccionado == null) {
         System.out.println("Ingrese el nombre del producto que desea comprar:");
-        String entrada = sc.nextLine();
+        String entrada = Sistema.SC.nextLine();
 
         for (Producto p : listaProdCat) {
             if (p.getNombre().equalsIgnoreCase(entrada)) {
@@ -149,10 +148,6 @@ public class Cliente extends Usuario {
 
     public void mostrarMensajePago() {
         System.out.println("El pago se hizo efectivo");
-    }
-
-    public void asignarRepartidor() {
-        
     }
 
 }

@@ -1,12 +1,14 @@
 package proyecto;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
 import proyecto.leerArchivo.ParseData;
 import proyecto.usuario.*;
 
 public class Sistema {
     private ArrayList<Usuario> usuarios = ParseData.parseUsuarios();
+    public final static Scanner SC = new Scanner(System.in);
 
     public Usuario IniciarSesion(){
         Scanner sc = new Scanner(System.in);
@@ -69,6 +71,28 @@ public class Sistema {
 
         }
     }
+    public List<Repartidor> obtenerRepartidores(List<Usuario> usuarios) {
+    List<Repartidor> repartidores = new ArrayList<>();
+
+    for (Usuario u : usuarios) {
+        if (u instanceof Repartidor) {
+            repartidores.add((Repartidor) u); // casteo seguro
+        }
+    }
+    return repartidores;
+}
+    public List<Cliente> obtenerClientes(List<Usuario> usuarios) {
+        List<Cliente> clientes = new ArrayList<>();
+
+        for (Usuario u : usuarios) {
+            if (u instanceof Cliente) {
+                clientes.add((Cliente) u);
+            }
+        }
+        return clientes;
+    }
+
+    
     public static void main(String[] args) {
         Sistema sis = new Sistema();
         Usuario user=sis.IniciarSesion();
