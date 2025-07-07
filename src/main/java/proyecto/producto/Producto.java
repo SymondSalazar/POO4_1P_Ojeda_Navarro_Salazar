@@ -15,6 +15,15 @@ public class Producto {
         this.stock = stock;
     }
 
+
+    public Producto () {
+        this.categoria = TipoProducto.DEFAULT;
+        this.codigo = "0";
+        this.nombre = "0";
+        this.precio = 0.0;
+        this.stock = 0;
+    }
+
     public TipoProducto getCategoria() {
         return categoria;
     }
@@ -60,4 +69,5 @@ public class Producto {
                 .append(this.stock)
                 .toString();
     }
+
 }

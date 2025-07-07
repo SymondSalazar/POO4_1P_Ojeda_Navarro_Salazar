@@ -1,7 +1,10 @@
 package proyecto.producto;
+
 public enum TipoProducto {
-    Ropa,
-    Tecnología,
-    Deportes,
-    Hogar
+    ROPA,
+    TECNOLOGIA,
+    DEPORTE,
+    HOGAR,
+    DEFAULT
 }
+

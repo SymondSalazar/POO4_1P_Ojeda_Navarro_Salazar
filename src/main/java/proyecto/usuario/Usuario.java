@@ -87,5 +87,5 @@ public abstract class Usuario {
         Usuario usuario = (Usuario) obj;
         return codigoUnico != null ? codigoUnico.equals(usuario.codigoUnico) : usuario.codigoUnico == null;
     }
-    
+
 }
