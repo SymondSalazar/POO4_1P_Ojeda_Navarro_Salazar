@@ -84,6 +84,7 @@ public class ParseData {
             return null;
         }
     }
+<<<<<<< HEAD
         private static Cliente crearCliente(String codigoUnico, String cedula, String nombres, String apellidos, String userName, String contrasena, String correo, ArrayList<String> clientesFile) {
             for (String cliente : clientesFile) {
                 if (cliente.startsWith("Código")) continue; 
@@ -97,6 +98,26 @@ public class ParseData {
             return null;
         }
     private static Repartidor crearRepartidor(String codigoUnico, String cedula, String nombres, String apellidos, String userName, String contrasena, String correo, ArrayList<String> repartidoresFile) {
+=======
+    
+    private static Cliente crearCliente(String codigoUnico, String cedula, String nombres, String apellidos, 
+                                       String userName, String contrasena, String correo, ArrayList<String> clientesFile) {
+        for (String cliente : clientesFile) {
+            if (cliente.startsWith("Código")) continue; // Saltar header
+            
+            String[] datosSecundarios = cliente.split("\\|");
+            if (datosSecundarios.length >= 6 && datosSecundarios[0].equals(codigoUnico)) {
+                String celular = datosSecundarios[4];
+                String direccion = datosSecundarios[5];
+                return new Cliente(codigoUnico, cedula, nombres, apellidos, userName, contrasena, correo, celular, direccion);
+            }
+        }
+        return null;
+    }
+    
+    private static Repartidor crearRepartidor(String codigoUnico, String cedula, String nombres, String apellidos,
+                                                              String userName, String contrasena, String correo, ArrayList<String> repartidoresFile) {
+>>>>>>> cd9cfcea8cb4eccba535c2284f5086c105bd0576
         for (String repartidor : repartidoresFile) {
             if (repartidor.startsWith("Código")) continue; // Saltar header
             

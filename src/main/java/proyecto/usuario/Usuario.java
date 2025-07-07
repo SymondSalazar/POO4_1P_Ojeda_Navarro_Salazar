@@ -176,7 +176,10 @@ public abstract class Usuario {
                 codigoUnico, cedula, nombres, apellidos, userName, contrasena, correo);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> cd9cfcea8cb4eccba535c2284f5086c105bd0576
     
     /**
      * Compara si dos usuarios son iguales basándose en su código único.
@@ -191,6 +194,7 @@ public abstract class Usuario {
         Usuario usuario = (Usuario) obj;
         return codigoUnico != null ? codigoUnico.equals(usuario.codigoUnico) : usuario.codigoUnico == null;
     }
+<<<<<<< HEAD
     
 
     
@@ -219,4 +223,7 @@ public abstract class Usuario {
     }
 >>>>>>> 99659700cddf95e82a7b1217313e68afdafe0297
 
+=======
+
+>>>>>>> cd9cfcea8cb4eccba535c2284f5086c105bd0576
 }

@@ -30,10 +30,12 @@ public class Cliente extends Usuario {
     public String getDireccion() {
         return direccion;
     }
+  
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
+<<<<<<< HEAD
     public void mostrarCategorias() {
         for(TipoProducto tp : TipoProducto.values()) System.out.println(tp);
     }
@@ -65,6 +67,49 @@ public class Cliente extends Usuario {
     return categoria;
 }
 
+=======
+
+    public void mostrarCategorias() {
+        for(TipoProducto tp : TipoProducto.values()) System.out.println(tp);
+    }
+
+  public TipoProducto guardarCategoria() {
+          TipoProducto categoria = null;
+
+          while (categoria == null || categoria == TipoProducto.DEFAULT) {
+              System.out.println("Categorías disponibles:");
+              for (TipoProducto tipo : TipoProducto.values()) {
+                  if (tipo != TipoProducto.DEFAULT) {
+                      System.out.println("- " + tipo);
+                  }
+              }
+
+              System.out.print("Ingrese categoría que desea consultar: ");
+              String entrada = sc.nextLine().toUpperCase();
+
+              try {
+                  categoria = TipoProducto.valueOf(entrada);
+                  if (categoria == TipoProducto.DEFAULT) {
+                      System.out.println("No puede elegir la opción 'DEFAULT'.");
+                      categoria = null;
+                  }
+              } catch (IllegalArgumentException e) {
+                  System.out.println("Categoría inválida. Intente nuevamente.");
+              }
+          }
+          return categoria;
+      }
+
+    @Override
+    public String toString() {
+        return new StringBuilder(super.toString())
+                .append("|").append(this.celular)
+                .append("|").append(this.direccion)
+                .toString();
+
+    }
+    
+>>>>>>> cd9cfcea8cb4eccba535c2284f5086c105bd0576
     public List<Producto> mostrarProductosDisponibles(List<Producto> listaProductos, TipoProducto categoria) {
     System.out.println("Productos en la categoría: " + categoria);
     
@@ -150,6 +195,13 @@ public class Cliente extends Usuario {
         System.out.println("El pago se hizo efectivo");
     }
 
+<<<<<<< HEAD
+=======
+    public void asignarRepartidor() {
+        
+    }
+
+>>>>>>> cd9cfcea8cb4eccba535c2284f5086c105bd0576
 }
 
 
