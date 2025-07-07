@@ -22,49 +22,63 @@ public class Cliente extends Usuario {
         return celular;
     }
     public void setCelular(String celular) {
-        this.celular = celular;
+        // Validación básica de formato de teléfono
+        if (celular != null && celular.trim().length() >= 10) {
+            this.celular = celular.trim();
+        }
     }
     
     public String getDireccion() {
         return direccion;
     }
+  
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        if (direccion != null && !direccion.trim().isEmpty()) {
+            this.direccion = direccion.trim();
+        }
     }
+
 
     public void mostrarCategorias() {
         for(TipoProducto tp : TipoProducto.values()) System.out.println(tp);
     }
 
-    public TipoProducto guardarCategoria() {
-    Scanner sc = new Scanner(System.in);
-    TipoProducto categoria = null;
+  public TipoProducto guardarCategoria() {
+          TipoProducto categoria = null;
 
-    while (categoria == null || categoria == TipoProducto.DEFAULT) {
-        System.out.println("Categorías disponibles:");
-        for (TipoProducto tipo : TipoProducto.values()) {
-            if (tipo != TipoProducto.DEFAULT) {
-                System.out.println("- " + tipo);
-            }
-        }
+          while (categoria == null || categoria == TipoProducto.DEFAULT) {
+              System.out.println("Categorías disponibles:");
+              for (TipoProducto tipo : TipoProducto.values()) {
+                  if (tipo != TipoProducto.DEFAULT) {
+                      System.out.println("- " + tipo);
+                  }
+              }
 
-        System.out.print("Ingrese categoría que desea consultar: ");
-        String entrada = sc.nextLine().toUpperCase();
+              System.out.print("Ingrese categoría que desea consultar: ");
+              String entrada = sc.nextLine().toUpperCase();
 
-        try {
-            categoria = TipoProducto.valueOf(entrada);
-            if (categoria == TipoProducto.DEFAULT) {
-                System.out.println("No puede elegir la opción 'DEFAULT'.");
-                categoria = null;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Categoría inválida. Intente nuevamente.");
-        }
+              try {
+                  categoria = TipoProducto.valueOf(entrada);
+                  if (categoria == TipoProducto.DEFAULT) {
+                      System.out.println("No puede elegir la opción 'DEFAULT'.");
+                      categoria = null;
+                  }
+              } catch (IllegalArgumentException e) {
+                  System.out.println("Categoría inválida. Intente nuevamente.");
+              }
+          }
+          return categoria;
+      }
+
+    @Override
+    public String toString() {
+        return new StringBuilder(super.toString())
+                .append("|").append(this.celular)
+                .append("|").append(this.direccion)
+                .toString();
+
     }
-    sc.close();
-    return categoria;
-}
-
+    
     public List<Producto> mostrarProductosDisponibles(List<Producto> listaProductos, TipoProducto categoria) {
     System.out.println("Productos en la categoría: " + categoria);
     

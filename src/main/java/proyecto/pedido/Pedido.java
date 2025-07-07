@@ -20,12 +20,16 @@ public class Pedido {
         this.repartidor=repartidor;
     }
 
-    //Setters
+    //Setters con validaciones
     public void setCantPedido(int cantPedido) {
-        this.cantPedido = cantPedido;
+        if (cantPedido > 0) {
+            this.cantPedido = cantPedido;
+        }
     }
     public void setCodigoPedido(String codigoPedido) {
-        this.codigoPedido = codigoPedido;
+        if (codigoPedido != null && !codigoPedido.trim().isEmpty()) {
+            this.codigoPedido = codigoPedido.trim();
+        }
     }
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
@@ -37,7 +41,9 @@ public class Pedido {
         this.repartidor = repartidor;
     }
     public void setValorPagado(double valorPagado) {
-        this.valorPagado = valorPagado;
+        if (valorPagado >= 0) {
+            this.valorPagado = valorPagado;
+        }
     }
 
     //Getters
@@ -58,5 +64,18 @@ public class Pedido {
     }
     public double getValorPagado() {
         return valorPagado;
+    }
+    
+    // Métodos de utilidad
+    public boolean estaEntregado() {
+        return this.estado == EstadoPedido.Entregado;
+    }
+    
+    public boolean estaEnRuta() {
+        return this.estado == EstadoPedido.EnRuta;
+    }
+    
+    public boolean estaEnPreparacion() {
+        return this.estado == EstadoPedido.EnPreparacion;
     }
 }
