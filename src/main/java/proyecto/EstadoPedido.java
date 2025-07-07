@@ -1,4 +1,4 @@
-package proyecto.pedido;
+package proyecto;
 
 public enum EstadoPedido {
     EnPreparacion,

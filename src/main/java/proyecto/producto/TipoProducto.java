@@ -1,4 +1,5 @@
 package proyecto.producto;
+
 public enum TipoProducto {
     ROPA,
     TECNOLOGIA,
@@ -6,5 +7,4 @@ public enum TipoProducto {
     HOGAR,
     DEFAULT
 }
-
 

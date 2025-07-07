@@ -63,6 +63,9 @@ public abstract class Usuario {
         this.correo = correo;
     }
 
-    
+    @Override
+    public String toString() {
+        return this.codigoUnico + "|" + this.cedula + "|" + this.nombres + "|" + this.apellidos + "|" + this.userName + "|" + this.contrasena + "|" +    this.correo;
+    }
 
 }

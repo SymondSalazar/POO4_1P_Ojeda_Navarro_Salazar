@@ -4,8 +4,8 @@ import java.util.List;
 import proyecto.producto.Producto;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-
 import proyecto.producto.TipoProducto;
+
 
 public class Cliente extends Usuario {
     private String celular;
@@ -37,63 +37,78 @@ public class Cliente extends Usuario {
     }
 
     public TipoProducto guardarCategoria() {
-        Scanner sc = new Scanner(System.in);
-        TipoProducto categoria = TipoProducto.valueOf("DEFAULT"); 
+    Scanner sc = new Scanner(System.in);
+    TipoProducto categoria = null;
 
-        System.out.println("ingrese categoria que desea consultar:");
-        String entrada = sc.nextLine();
-
-        while (categoria == TipoProducto.DEFAULT) {
-            try {
-                categoria = TipoProducto.valueOf(entrada.toUpperCase());
-                if (categoria == TipoProducto.DEFAULT) System.out.println("Debe ingresar una categoría válida, no 'DEFAULT'.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Categoría inválida. Intente nuevamente.");
+    while (categoria == null || categoria == TipoProducto.DEFAULT) {
+        System.out.println("Categorías disponibles:");
+        for (TipoProducto tipo : TipoProducto.values()) {
+            if (tipo != TipoProducto.DEFAULT) {
+                System.out.println("- " + tipo);
             }
         }
-        sc.close();
-        return categoria;
-    }
 
-    public List<Producto> mostrarProductosDisponibles(List<Producto> listaProductos,TipoProducto categoria) {
-        System.out.println("Productos en la categoría: " + categoria);
+        System.out.print("Ingrese categoría que desea consultar: ");
+        String entrada = sc.nextLine().toUpperCase();
 
-         boolean encontrados = false;
-         List<Producto> listaProdCat = new ArrayList<>(); 
-
-         for (Producto p : listaProductos) {
-            if (p.getCategoria() == categoria) {
-                System.out.println(p);
-                encontrados = true;
-                listaProdCat.add(p);
+        try {
+            categoria = TipoProducto.valueOf(entrada);
+            if (categoria == TipoProducto.DEFAULT) {
+                System.out.println("No puede elegir la opción 'DEFAULT'.");
+                categoria = null;
             }
-        }if (!encontrados) {
-              System.out.println("No hay productos disponibles en esta categoría.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Categoría inválida. Intente nuevamente.");
         }
-        return listaProdCat;
     }
+    sc.close();
+    return categoria;
+}
+
+    public List<Producto> mostrarProductosDisponibles(List<Producto> listaProductos, TipoProducto categoria) {
+    System.out.println("Productos en la categoría: " + categoria);
+    
+    List<Producto> listaProdCat = new ArrayList<>();
+
+    for (Producto p : listaProductos) {
+        if (p.getCategoria() == categoria) {
+            listaProdCat.add(p);
+        }
+    }
+
+    if (listaProdCat.isEmpty()) {
+        System.out.println("No hay productos disponibles en esta categoría.");
+    } else {
+        for (Producto p : listaProdCat) {
+            System.out.println(p);
+        }
+    }
+
+    return listaProdCat;
+}
 
     public Producto guardarProducto(List<Producto> listaProdCat) {
-        Scanner sc = new Scanner(System.in);
-        boolean value = true;
-        int index = 0;
+    Scanner sc = new Scanner(System.in);
+    Producto productoSeleccionado = null;
 
-        System.out.println("ingrese producto que desea comprar:");
+    while (productoSeleccionado == null) {
+        System.out.println("Ingrese el nombre del producto que desea comprar:");
         String entrada = sc.nextLine();
 
-        while (value) {
-            for (int i=0;i<listaProdCat.size();i++) {
-                if (listaProdCat.get(i).getNombre() == entrada){
-                    value = false;
-                    index = i;
-                }
-            } 
-            System.out.println("El producto no está en la lista. Ingrese nuevamente producto que desea comprar:");
-            entrada = sc.nextLine();
-        } 
-        sc.close();
-        return listaProdCat.get(index);
+        for (Producto p : listaProdCat) {
+            if (p.getNombre().equalsIgnoreCase(entrada)) {
+                productoSeleccionado = p;
+                break;
+            }
+        }
+
+        if (productoSeleccionado == null) {
+            System.out.println("El producto no está en la lista. Intente nuevamente.");
+        }
     }
+    sc.close();
+    return productoSeleccionado;
+}
 
     public int guardarCantidadProducto(Producto p) {
         Scanner sc = new Scanner(System.in);
@@ -113,7 +128,7 @@ public class Cliente extends Usuario {
     }
 
     public void mostrarTotalPago(Producto producto, int cantidad) {
-        System.out.println("Total a pagar: " + producto.getPrecio()*cantidad);;
+        System.out.println("Total a pagar: " + producto.getPrecio()*cantidad);
     }
 
     public String guardarNumeroTarjeta() {
