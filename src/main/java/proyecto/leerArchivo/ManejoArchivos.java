@@ -18,7 +18,6 @@ public class ManejoArchivos {
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
-            // hacer una lectura comoda (disponer del metodo readLine()).
             archivo = new File(nombrearchivo);
             fr = new FileReader(archivo,StandardCharsets.UTF_8);
             br = new BufferedReader(fr);
@@ -66,7 +65,33 @@ public class ManejoArchivos {
                 // Nuevamente aprovechamos el finally para 
                 // asegurarnos que se cierra el fichero.
                 if (null != fichero) {
-                    //fichero.close();
+                    fichero.close();
+                }
+                if (null != bw) {
+                    bw.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Escribe una sola línea al final de un archivo
+     */
+    public static void EscribirLinea(String nombreArchivo, String linea) {
+        FileWriter fichero = null;
+        BufferedWriter bw = null;
+        
+        try {
+            fichero = new FileWriter(nombreArchivo, StandardCharsets.UTF_8, true); // true para append
+            bw = new BufferedWriter(fichero);
+            bw.write(linea + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != bw) {
                     bw.close();
                 }
             } catch (Exception e2) {
