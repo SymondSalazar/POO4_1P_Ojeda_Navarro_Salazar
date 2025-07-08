@@ -17,13 +17,12 @@ public class PedidoService {
     private List<Pedido> pedidos;
     private List<Repartidor> repartidoresDisponibles;
     private Random random;
-    private static int contador = 0;
+    public static int contador = 0;
     
     public PedidoService() {
         this.pedidos = new ArrayList<>();
         this.repartidoresDisponibles = new ArrayList<>();
         this.random = new Random();
-        cargarPedidosDesdeArchivo(); // Se cargará después cuando se tengan usuarios
     }
     
     public PedidoService(List<Repartidor> repartidores) {
@@ -35,6 +34,8 @@ public class PedidoService {
      * Crea un nuevo pedido
      */
     public Pedido crearPedido(Cliente cliente, Producto producto, int cantidad) {
+
+        //Actualizar el archivo de 
         String codigoPedido = generarCodigoPedido();
         Pedido nuevoPedido = new Pedido(codigoPedido, cliente, producto, cantidad);
         
@@ -244,43 +245,7 @@ public class PedidoService {
         }
     }
     
-    /**
-     * Carga pedidos básicos desde archivo (solo para mostrar en el sistema)
-     */
-    private void cargarPedidosDesdeArchivo() {
-        try {
-            ArrayList<String> lineas = ManejoArchivos.LeeFichero("Data/Pedidos.txt");
-            
-            for (String linea : lineas) {
-                if (linea.startsWith("Código") || linea.trim().isEmpty()) continue;
-                
-                // Solo extraer el código para actualizar el contador
-                String[] datos = linea.split("\\|");
-                if (datos.length > 0) {
-                    String codigo = datos[0];
-                    if (codigo.startsWith("PED-")) {
-                        try {
-                            int num = Integer.parseInt(codigo.substring(4));
 
-                            if (num >= contador) {
-                                contador = num + 1;
-                            }
-
-                            pedidos.add(new Pedido(codigo, datos[1], Integer.parseInt(datos[4]), Double.parseDouble(datos[5]), EstadoPedido.valueOf(datos[6]), null));
-                        } catch (NumberFormatException e) {
-                            // Ignorar códigos con formato diferente
-                        }
-                    }
-                }
-            }
-            
-            System.out.println("Pedidos cargados desde archivo. Contador actualizado a: " + contador);
-            
-        } catch (Exception e) {
-            System.out.println("No se pudo cargar el archivo de pedidos, empezando desde cero");
-        }
-    }
-    
     // Getters y setters
     public List<Pedido> getPedidos() {
         return new ArrayList<>(pedidos);
@@ -288,5 +253,9 @@ public class PedidoService {
     
     public void setRepartidoresDisponibles(List<Repartidor> repartidores) {
         this.repartidoresDisponibles = repartidores != null ? repartidores : new ArrayList<>();
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos != null ? pedidos : new ArrayList<>();
     }
 }
