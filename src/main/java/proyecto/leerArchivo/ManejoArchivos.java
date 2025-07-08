@@ -65,7 +65,7 @@ public class ManejoArchivos {
                 // Nuevamente aprovechamos el finally para 
                 // asegurarnos que se cierra el fichero.
                 if (null != fichero) {
-                    fichero.close();
+                    //fichero.close();
                 }
                 if (null != bw) {
                     bw.close();
