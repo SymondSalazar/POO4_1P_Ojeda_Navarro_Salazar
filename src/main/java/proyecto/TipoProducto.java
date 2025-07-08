@@ -11,7 +11,7 @@ public enum TipoProducto {
     /** Categoría de productos tecnológicos y electrónicos */
     Tecnología("Tecnología"),
     /** Categoría de productos deportivos y equipamiento atlético */
-    Deportes("Deporte"),
+    Deportes("Deportes"),
     /** Categoría de productos para el hogar y decoración */
     Hogar("Hogar");
 
