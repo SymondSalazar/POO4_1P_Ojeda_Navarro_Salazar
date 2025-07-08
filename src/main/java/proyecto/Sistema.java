@@ -42,6 +42,7 @@ public class Sistema {
             this.productoService = new ProductoService();
             this.pagoService = new PagoService();
             
+
             // Extraer repartidores para el servicio de pedidos
             List<Repartidor> repartidores = new ArrayList<>();
             for (Usuario usuario : usuarios) {
@@ -50,7 +51,7 @@ public class Sistema {
                 }
             }
             this.pedidoService = new PedidoService(repartidores);
-            
+            this.pedidoService.setPedidos(ParseData.parsePedidos(usuarios,this.productos));
             System.out.println("Sistema inicializado correctamente");
             System.out.println("Usuarios cargados: " + usuarios.size());
             System.out.println("Productos cargados: " + productos.size());
@@ -212,6 +213,7 @@ public class Sistema {
                     break;
                 case 5:
                     System.out.println("Saliendo del sistema...");
+                    
                     System.exit(0);
                     break;
             }
@@ -304,6 +306,8 @@ public class Sistema {
                     // Crear pedido
                     pedidoService.crearPedido(cliente, productoSeleccionado, cantidad);
                     System.out.println("✓ Compra completada exitosamente");
+                    //Actualizamos el archivo de productos
+                    ParseData.saveProductoData(productos);
                 } else {
                     System.out.println("✗ Error al procesar la compra");
                 }
