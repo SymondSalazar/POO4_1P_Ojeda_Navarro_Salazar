@@ -1,2 +1,2 @@
 Código|Fecha|Cliente|Producto|Cantidad|ValorTotal|Estado|Repartidor
-PED-0|2025-07-07T19:52:03.0385958|Ana Torres|Taza Térmica Acero|50|499.50|Entregado|Camila Ríos
+

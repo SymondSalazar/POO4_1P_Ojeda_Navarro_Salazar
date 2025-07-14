@@ -2,6 +2,7 @@ package proyecto.servicio;
 
 import proyecto.pedido.Pedido;
 import proyecto.EstadoPedido;
+import proyecto.email.EnviarCorreo;
 import proyecto.usuario.Cliente;
 import proyecto.usuario.Repartidor;
 import proyecto.producto.Producto;
@@ -18,11 +19,12 @@ public class PedidoService {
     private List<Repartidor> repartidoresDisponibles;
     private Random random;
     public static int contador = 0;
-    
+    private EnviarCorreo enviarCorreo;
     public PedidoService() {
         this.pedidos = new ArrayList<>();
         this.repartidoresDisponibles = new ArrayList<>();
         this.random = new Random();
+        this.enviarCorreo = new EnviarCorreo();
     }
     
     public PedidoService(List<Repartidor> repartidores) {
@@ -87,7 +89,7 @@ public class PedidoService {
      */
     public Pedido buscarPedido(String codigoPedido) {
         for (Pedido pedido : pedidos) {
-            if (pedido.getCodigoPedido().equals(codigoPedido)) {
+            if (pedido.getCodigoPedido().equalsIgnoreCase(codigoPedido)) {
                 return pedido;
             }
         }
@@ -128,12 +130,60 @@ public class PedidoService {
     public boolean actualizarEstadoPedido(String codigoPedido, EstadoPedido nuevoEstado) {
         Pedido pedido = buscarPedido(codigoPedido);
         if (pedido != null) {
+            // Verificar si el pedido ya está entregado
+            if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
+                System.out.println("Error: No se puede actualizar un pedido que ya ha sido entregado.");
+                return false;
+            }
             pedido.setEstado(nuevoEstado);
             
             // Actualizar archivo con todos los pedidos
             actualizarArchivoPedidos();
+
             
             System.out.println("Estado del pedido " + codigoPedido + " actualizado a: " + nuevoEstado);
+            
+            if(nuevoEstado == EstadoPedido.ENTREGADO) {
+                // Enviar correo de confirmación al cliente
+                String mensaje = "Nos complace informarle Sr@ " + pedido.getCliente().getNombreCompleto() + ", que su pedido ha sido entregado exitosamente\n\n" +
+                    "Detalles del pedido:\n" +
+                    "- Código: " + pedido.getCodigoPedido() + "\n" +
+                    "- Producto: " + pedido.getProducto().getNombre() + "\n" +
+                    "- Cantidad: " + pedido.getCantidadPedida() + "\n" +
+                    "- Valor total: $" + String.format("%.2f", pedido.getValorPagado()) + "\n" +
+                    "- Repartidor: " + (pedido.getRepartidor() != null ? 
+                        pedido.getRepartidor().getNombres() + " " + pedido.getRepartidor().getApellidos() : "Sin asignar") + "\n" +
+                    "- Empresa: " + (pedido.getRepartidor() != null ? pedido.getRepartidor().getEmpresa() : "N/A") + "\n\n" +
+                    "Gracias por su compra.";
+                enviarCorreo.enviarCorreo(pedido.getCliente().getCorreo(), "¡Su pedido ha sido entregado exitosamente! 😎" + pedido.getCodigoPedido(), mensaje);
+            } else if(nuevoEstado == EstadoPedido.EN_RUTA) {
+                // Enviar correo cuando el pedido está en ruta
+                String mensaje = "Nos complace informarle Sr@ " + pedido.getCliente().getNombreCompleto() + ", que su pedido esta en camino\n" +
+                    "Detalles del envío:\n" +
+                    "- Código: " + pedido.getCodigoPedido() + "\n" +
+                    "- Producto: " + pedido.getProducto().getNombre() + "\n" +
+                    "- Cantidad: " + pedido.getCantidadPedida() + "\n" +
+                    "- Valor total: $" + String.format("%.2f", pedido.getValorPagado()) + "\n" +
+                    "- Repartidor: " + (pedido.getRepartidor() != null ? 
+                        pedido.getRepartidor().getNombres() + " " + pedido.getRepartidor().getApellidos() : "Sin asignar") + "\n" +
+                    "- Empresa: " + (pedido.getRepartidor() != null ? pedido.getRepartidor().getEmpresa() : "N/A") + "\n\n" +
+                    "Su pedido llegará pronto.";
+                enviarCorreo.enviarCorreo(pedido.getCliente().getCorreo(), "📦 Su pedido está en camino" + pedido.getCodigoPedido(), mensaje);
+            } else {
+                // Enviar correo de actualización de estado general
+                String mensaje = "El estado de su pedido ha sido actualizado.\n\n" +
+                    "Detalles del pedido:\n" +
+                    "- Código: " + pedido.getCodigoPedido() + "\n" +
+                    "- Nuevo estado: " + nuevoEstado + "\n" +
+                    "- Producto: " + pedido.getProducto().getNombre() + "\n" +
+                    "- Cantidad: " + pedido.getCantidadPedida() + "\n" +
+                    "- Valor total: $" + String.format("%.2f", pedido.getValorPagado()) + "\n" +
+                    "- Repartidor: " + (pedido.getRepartidor() != null ? 
+                        pedido.getRepartidor().getNombres() + " " + pedido.getRepartidor().getApellidos() : "Sin asignar") + "\n\n" +
+                    "Manténgase atento a las actualizaciones.";
+                enviarCorreo.enviarCorreo(pedido.getCliente().getCorreo(), "Estado del Pedido Actualizado - " + pedido.getCodigoPedido(), mensaje);
+            }
+            
             return true;
         }
         System.out.println("Pedido no encontrado: " + codigoPedido);

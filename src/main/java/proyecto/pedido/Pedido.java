@@ -137,13 +137,9 @@ public class Pedido {
     
     public void setRepartidor(Repartidor repartidor) {
         this.repartidor = repartidor;
-        // Si se asigna repartidor y está en preparación, cambiar a en ruta
-        if (repartidor != null && this.estado == EstadoPedido.EN_PREPARACION) {
-            this.estado = EstadoPedido.EN_RUTA;
-        }
     }
     
-    public void setProducto(Producto producto) {
+    public void setProducto(Producto producto) {   
         this.producto = producto;
         // Recalcular valor pagado
         if (producto != null) {
